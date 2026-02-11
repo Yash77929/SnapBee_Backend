@@ -1,16 +1,16 @@
 package com.example.SnapBee.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -18,6 +18,13 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({
+        "authorities",
+        "enabled",
+        "accountNonExpired",
+        "accountNonLocked",
+        "credentialsNonExpired"
+})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +36,7 @@ public class User implements UserDetails {
     private String bio;
     private String gender;
     private String image;
+    @JsonIgnore
     private String password;
 
     @ManyToMany
@@ -37,9 +45,11 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "follower_id"),
             inverseJoinColumns = @JoinColumn(name = "following_id")
     )
+    @JsonIgnoreProperties({"following", "followers", "stories", "savePost", "password"})
     private Set<User> following = new HashSet<>();
 
     @ManyToMany(mappedBy = "following")
+    @JsonIgnoreProperties({"following", "followers", "stories", "savePost", "password"})
     private Set<User> followers = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -60,6 +70,6 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.username;
     }
 }
