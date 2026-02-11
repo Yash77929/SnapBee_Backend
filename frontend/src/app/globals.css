@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f4ef;
+  --foreground: #1c1b1f;
+  --primary: #ff6f3c;
+  --primary-hover: #f05a29;
+  --border: #e7e1d8;
+  --secondary-text: #6f6a63;
+  --surface: #ffffff;
+  --surface-muted: #fff7ee;
+  --accent: #1f7a8c;
+  --accent-soft: #e6f6f2;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, rgba(255, 235, 205, 0.55), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(31, 122, 140, 0.18), transparent 40%),
+    radial-gradient(circle at 10% 80%, rgba(255, 111, 60, 0.2), transparent 45%),
+    linear-gradient(180deg, #f7f4ef 0%, #f2f3f9 100%);
+  color: var(--foreground);
+  font-family: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+.font-display {
+  font-family: var(--font-display), "Times New Roman", serif;
+}
+
+.btn-primary {
+  @apply bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-semibold py-2.5 px-5 rounded-full shadow-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.input-field {
+  @apply w-full px-3 py-2 border border-[var(--border)] rounded-lg bg-white/80 text-sm focus:outline-none focus:border-[var(--accent)];
+}
+
+.link-primary {
+  @apply text-[var(--accent)] hover:text-[var(--primary)] font-semibold;
+}
