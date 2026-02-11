@@ -14,11 +14,11 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByEmail(String email);
 
-    Optional<User> findByUsername(String email);
+    Optional<User> findByUsername(String username);
 
     @Query("SELECT u from User u where u.id IN :users")
     List<User> findAllUsersByUserIds(@Param("users") List<Long> userIds);
 
-    @Query("SELECT DISTINCT u from User u where u.username LIKE %:query% OR u.email LIKE %:query")
+    @Query("SELECT DISTINCT u from User u where u.username LIKE %:query% OR u.email LIKE %:query%")
     List<User> findByQuery(@Param("query") String query);
 }

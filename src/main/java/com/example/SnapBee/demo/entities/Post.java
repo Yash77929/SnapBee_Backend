@@ -1,5 +1,6 @@
 package com.example.SnapBee.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"following", "followers", "stories", "savePost", "password"})
     private User user;
     @OneToMany
     private List<Comment> comments = new ArrayList<>();

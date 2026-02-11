@@ -33,7 +33,7 @@ public class UserUserDetailsService implements UserDetailsService {
             throw new UserException("Email already exists");
         }
 
-        Optional<User> isUsernameExist = userRepository.findByUsername(signupDto.getEmail());
+        Optional<User> isUsernameExist = userRepository.findByUsername(signupDto.getUsername());
         if (isUsernameExist.isPresent()) {
             throw new UserException("This username already taken");
         }

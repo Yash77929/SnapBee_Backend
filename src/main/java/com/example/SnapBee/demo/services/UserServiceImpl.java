@@ -138,12 +138,9 @@ public class UserServiceImpl implements UserService {
             existingUser.setMobile(updateUser.getMobile());
         }
         if (updateUser.getImage() != null) {
-            existingUser.setName(updateUser.getImage());
+            existingUser.setImage(updateUser.getImage());
         }
-        if (updateUser.getId().equals(existingUser.getId())) {
-            userRepository.save(existingUser);
-        }
-        throw new UserException("you cannot update user");
+        return userRepository.save(existingUser);
     }
 
 }

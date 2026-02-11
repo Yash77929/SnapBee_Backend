@@ -1,5 +1,6 @@
 package com.example.SnapBee.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class Story {
     private Long Id;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"following", "followers", "stories", "savePost", "password"})
     private User user;
     @NonNull
     private String image;
